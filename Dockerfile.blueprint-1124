@@ -1,0 +1,7 @@
+FROM php:8.3.36-fpm-alpine3.23 AS patched
+FROM ghcr.io/blueprintframework/blueprint@sha256:a0f9dcaa9d63ad62818fbf0548ccecd7bf650081558413b3997f4349ff9d210f
+COPY --from=patched /usr/local/bin/php /usr/local/bin/php
+COPY --from=patched /usr/local/sbin/php-fpm /usr/local/sbin/php-fpm
+COPY --from=patched /usr/local/lib/php/extensions/no-debug-non-zts-20230831/opcache.so /usr/local/lib/php/extensions/no-debug-non-zts-20230831/opcache.so
+LABEL org.opencontainers.image.source="https://github.com/RH1TE/php2shell-fixed-images"
+LABEL org.opencontainers.image.description="RHITE PHP2Shell fixed Blueprint v1.12.4 runtime PHP 8.3.36"
